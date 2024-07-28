@@ -2,6 +2,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import common.BaseStyles
+import common.Theme
+import common.ThemeProvider
+import common.ThemeVariables
 import components.Layout
 import components.PageContent
 import components.PageFooter
@@ -11,23 +15,21 @@ import org.jetbrains.compose.web.css.Style
 import org.jetbrains.compose.web.dom.*
 import org.jetbrains.compose.web.renderComposableInBody
 
-enum class Theme { Dark, Light }
-
 fun main() {
     renderComposableInBody {
-        var theme by remember { mutableStateOf(Theme.Light) }
         Style {
             root {
-                when (theme) {
+                when (ThemeProvider.theme) {
                     Theme.Light -> {
-                        ThemeVariables.mainColor(Color("#333"))
-                        ThemeVariables.accentColor(Color("#6200ea"))
-                        ThemeVariables.backgroundColor(Color("#f0f0f0"))
+                        ThemeVariables.mainColor(Color("#201e1f"))
+                        ThemeVariables.accentColor(Color("#1d7874"))
+                        ThemeVariables.backgroundColor(Color("#F8F4E3"))
                     }
+
                     Theme.Dark -> {
-                        ThemeVariables.mainColor(Color("#f0f0f0"))
-                        ThemeVariables.accentColor(Color("#6200ea"))
-                        ThemeVariables.backgroundColor(Color("#333"))
+                        ThemeVariables.mainColor(Color("#F8F4E3"))
+                        ThemeVariables.accentColor(Color("#1d7874"))
+                        ThemeVariables.backgroundColor(Color("#201e1f"))
                     }
                 }
             }
@@ -39,15 +41,8 @@ fun main() {
             PageHeader {
                 H1 { Text("My delicious site") }
                 Div {
-                    Button(attrs = {
-                        onClick {
-                            theme = when (theme) {
-                                Theme.Light -> Theme.Dark
-                                Theme.Dark -> Theme.Light
-                            }
-                        }
-                    }) {
-                        Text("Switch theme")
+                    components.Button("Switch theme") {
+                        ThemeProvider.theme = ThemeProvider.theme.opposite
                     }
                 }
             }
@@ -58,14 +53,8 @@ fun main() {
                 }
                 Div {
                     Span {
-                        Button(
-                            attrs = {
-                                onClick {
-                                    counter++
-                                }
-                            },
-                        ) {
-                            Text("Increment")
+                        components.Button("Increment") {
+                            counter++
                         }
                     }
                 }

@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
+
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
     alias(libs.plugins.kotlinx.serialization)
@@ -19,6 +21,7 @@ kotlin {
         binaries.executable()
     }
 
+    @OptIn(ExperimentalKotlinGradlePluginApi::class)
     compilerOptions {
         freeCompilerArgs.add(
             "-Xcontext-receivers",
@@ -28,9 +31,7 @@ kotlin {
     sourceSets {
         jsMain.dependencies {
             implementation(libs.kotlin.coroutines)
-            implementation(libs.kotlin.css)
             implementation(libs.kotlin.extensions)
-            implementation(libs.kotlinx.html)
             implementation(libs.kotlinx.serialization.core)
             implementation(libs.kotlinx.serialization.json)
             implementation(compose.runtime)

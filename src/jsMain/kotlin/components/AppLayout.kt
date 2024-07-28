@@ -1,6 +1,6 @@
 package components
 
-import BaseStyles
+import common.BaseStyles
 import androidx.compose.runtime.Composable
 import org.jetbrains.compose.web.dom.*
 import org.w3c.dom.HTMLElement
@@ -21,6 +21,7 @@ fun PageHeader(
     content: @Composable ElementScope<HTMLElement>.() -> Unit,
 ) {
     Header({
+        classes(BaseStyles.header)
         attrs?.invoke(this)
     }) {
         content()
@@ -34,6 +35,7 @@ fun AppLayoutContext.PageContent(
     content: @Composable ElementScope<HTMLElement>.() -> Unit,
 ) {
     Main({
+        classes(BaseStyles.main)
         attrs?.invoke(this)
     }) {
         Div({
@@ -51,6 +53,7 @@ fun AppLayoutContext.PageFooter(
     content: @Composable ElementScope<HTMLElement>.() -> Unit,
 ) {
     Footer({
+        classes(BaseStyles.footer)
         attrs?.invoke(this)
     }) {
         content()
