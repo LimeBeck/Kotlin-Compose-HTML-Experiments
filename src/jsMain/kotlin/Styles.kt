@@ -8,12 +8,6 @@ object ThemeVariables {
 
 object BaseStyles : StyleSheet() {
     init {
-        root {
-            ThemeVariables.mainColor(Color("#333"))
-            ThemeVariables.accentColor(Color("#6200ea"))
-            ThemeVariables.backgroundColor(Color("#f0f0f0"))
-        }
-
         "#root" style {
             display(DisplayStyle.Flex)
             flexDirection(FlexDirection.Column)
@@ -28,8 +22,9 @@ object BaseStyles : StyleSheet() {
             flex(0, 0, 60.px)
             display(DisplayStyle.Flex)
             alignItems(AlignItems.Center)
-            justifyContent(JustifyContent.Center)
+            justifyContent(JustifyContent.SpaceBetween)
             fontSize(1.5.cssRem)
+            padding(10.px)
         }
 
         "main" style {
