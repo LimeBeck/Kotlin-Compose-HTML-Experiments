@@ -28,7 +28,6 @@ object BaseStyles : StyleSheet() {
         justifyContent(JustifyContent.SpaceBetween)
         fontSize(1.5.cssRem)
         padding(10.px)
-        maxWidth(80.cssRem)
     }
 
     val main by style {
