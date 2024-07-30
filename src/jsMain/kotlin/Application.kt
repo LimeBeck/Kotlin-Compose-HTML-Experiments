@@ -2,6 +2,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import app.softwork.routingcompose.BrowserRouter
+import app.softwork.routingcompose.NavLink
+import app.softwork.routingcompose.Router
 import common.BaseStyles
 import common.Theme
 import common.ThemeProvider
@@ -47,14 +50,39 @@ fun main() {
                 }
             }
             PageContent {
-                var counter: Int by remember { mutableStateOf(0) }
-                Div {
-                    Text("Hello World $counter")
-                }
-                Div {
-                    Span {
-                        components.Button("Increment") {
-                            counter++
+                BrowserRouter("/") {
+                    route("/") {
+                        NavLink("/hello-world") {
+                            Text("To Hello world!")
+                        }
+                    }
+                    route("/hello-world") {
+                        val params = parameters?.map
+                        var counter: Int by remember { mutableStateOf(0) }
+                        Div {
+                            params?.map {
+                                Div {
+                                    Span { Text("Param: ${it.key}: ${it.value}") }
+                                }
+                            }
+                        }
+                        Div {
+                            Text("Hello World $counter")
+                        }
+                        Div {
+                            Span {
+                                components.Button("Increment") {
+                                    counter++
+                                }
+                            }
+                        }
+                        Div {
+                            Span {
+                                val router = Router.current
+                                components.Button("Back") {
+                                    router.navigate("/")
+                                }
+                            }
                         }
                     }
                 }

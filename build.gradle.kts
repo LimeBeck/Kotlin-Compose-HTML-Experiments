@@ -17,6 +17,11 @@ repositories {
 kotlin {
     js {
         browser {
+            commonWebpackConfig {
+                cssSupport {
+                    enabled.set(true)
+                }
+            }
         }
         binaries.executable()
     }
@@ -36,6 +41,8 @@ kotlin {
             implementation(libs.kotlinx.serialization.json)
             implementation(compose.runtime)
             implementation(compose.html.core)
+            implementation(libs.router)
+            implementation(npm("hiq", "4.2.11"))
         }
 
         jsTest.dependencies {

@@ -3,7 +3,7 @@ kotlin = "2.0.0"
 compose = "1.6.11"
 kotlinx-html = "0.11.0"
 kotlinx-serialization = "1.6.0"
-
+router = "0.2.14"
 
 [libraries]
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.strictly = "1.8.0" }
@@ -15,6 +15,8 @@ uuid = { module = "com.benasher44:uuid", version = "0.8.4" }
 kotlinx-html = { module = "org.jetbrains.kotlinx:kotlinx-html", version.ref = "kotlinx-html" }
 kotlinx-serialization-core = { module = "org.jetbrains.kotlinx:kotlinx-serialization-core", version.ref = "kotlinx-serialization" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+
+router = { module = "app.softwork:routing-compose", version.ref = "router" }
 
 [plugins]
 jetbrains-compose = { id = "org.jetbrains.compose", version.ref = "compose" }
