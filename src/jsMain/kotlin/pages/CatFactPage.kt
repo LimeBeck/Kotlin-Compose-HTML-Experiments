@@ -20,7 +20,9 @@ fun CatFactPage(catService: CatService) {
         }
     }
 
-    updateFact()
+    remember {
+        updateFact()
+    }
 
     Div {
         Text("Cat fact: ${catFact?.fact ?: "Not loaded yet"}")
