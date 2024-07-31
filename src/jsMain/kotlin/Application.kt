@@ -1,4 +1,5 @@
 import app.softwork.routingcompose.BrowserRouter
+import app.softwork.routingcompose.HashRouter
 import common.BaseStyles
 import common.Theme
 import common.ThemeProvider
@@ -66,7 +67,7 @@ fun main() {
                 }
             }
             PageContent {
-                BrowserRouter("/") {
+                HashRouter("/") {
                     route("/") {
                         HomePage()
                     }
