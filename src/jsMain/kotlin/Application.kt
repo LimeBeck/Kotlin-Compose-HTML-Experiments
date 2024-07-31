@@ -1,10 +1,4 @@
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import app.softwork.routingcompose.BrowserRouter
-import app.softwork.routingcompose.NavLink
-import app.softwork.routingcompose.Router
 import common.BaseStyles
 import common.Theme
 import common.ThemeProvider
@@ -13,12 +7,34 @@ import components.Layout
 import components.PageContent
 import components.PageFooter
 import components.PageHeader
+import domain.cat.CatServiceKtor
+import domain.cat.CatServiceMock
+import io.ktor.client.*
+import io.ktor.client.engine.js.*
+import io.ktor.client.plugins.contentnegotiation.*
+import io.ktor.client.plugins.logging.*
+import io.ktor.serialization.kotlinx.json.*
+import kotlinx.serialization.json.Json
 import org.jetbrains.compose.web.css.Color
 import org.jetbrains.compose.web.css.Style
-import org.jetbrains.compose.web.dom.*
+import org.jetbrains.compose.web.dom.Div
+import org.jetbrains.compose.web.dom.H1
+import org.jetbrains.compose.web.dom.Style
+import org.jetbrains.compose.web.dom.Text
 import org.jetbrains.compose.web.renderComposableInBody
+import pages.CatFactPage
+import pages.HelloWorldPage
+import pages.HomePage
 
 fun main() {
+    val client =
+        HttpClient(Js) {
+            install(ContentNegotiation) {
+                json(Json { ignoreUnknownKeys = true })
+            }
+            install(Logging)
+        }
+
     renderComposableInBody {
         Style {
             root {
@@ -52,38 +68,19 @@ fun main() {
             PageContent {
                 BrowserRouter("/") {
                     route("/") {
-                        NavLink("/hello-world") {
-                            Text("To Hello world!")
-                        }
+                        HomePage()
                     }
                     route("/hello-world") {
-                        val params = parameters?.map
-                        var counter: Int by remember { mutableStateOf(0) }
-                        Div {
-                            params?.map {
-                                Div {
-                                    Span { Text("Param: ${it.key}: ${it.value}") }
-                                }
+                        HelloWorldPage()
+                    }
+                    route("/cat-fact") {
+                        val catServiceType = parameters?.map?.get("type")?.firstOrNull() ?: "impl"
+                        val catService =
+                            when (catServiceType) {
+                                "mock" -> CatServiceMock()
+                                else -> CatServiceKtor(client)
                             }
-                        }
-                        Div {
-                            Text("Hello World $counter")
-                        }
-                        Div {
-                            Span {
-                                components.Button("Increment") {
-                                    counter++
-                                }
-                            }
-                        }
-                        Div {
-                            Span {
-                                val router = Router.current
-                                components.Button("Back") {
-                                    router.navigate("/")
-                                }
-                            }
-                        }
+                        CatFactPage(catService)
                     }
                 }
             }

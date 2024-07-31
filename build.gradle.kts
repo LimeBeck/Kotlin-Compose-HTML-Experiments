@@ -42,6 +42,11 @@ kotlin {
             implementation(compose.runtime)
             implementation(compose.html.core)
             implementation(libs.router)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.js)
+            implementation(libs.ktor.client.logging)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
             implementation(npm("hiq", "4.2.11"))
         }
 
