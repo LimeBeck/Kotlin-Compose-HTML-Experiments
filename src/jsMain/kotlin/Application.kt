@@ -1,9 +1,9 @@
-import app.softwork.routingcompose.BrowserRouter
+import androidx.compose.runtime.mutableStateOf
 import app.softwork.routingcompose.HashRouter
 import common.BaseStyles
 import common.Theme
+import common.Theme.Light.applyStyle
 import common.ThemeProvider
-import common.ThemeVariables
 import components.Layout
 import components.PageContent
 import components.PageFooter
@@ -16,7 +16,6 @@ import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.plugins.logging.*
 import io.ktor.serialization.kotlinx.json.*
 import kotlinx.serialization.json.Json
-import org.jetbrains.compose.web.css.Color
 import org.jetbrains.compose.web.css.Style
 import org.jetbrains.compose.web.dom.Div
 import org.jetbrains.compose.web.dom.H1
@@ -39,19 +38,7 @@ fun main() {
     renderComposableInBody {
         Style {
             root {
-                when (ThemeProvider.theme) {
-                    Theme.Light -> {
-                        ThemeVariables.mainColor(Color("#201e1f"))
-                        ThemeVariables.accentColor(Color("#1d7874"))
-                        ThemeVariables.backgroundColor(Color("#F8F4E3"))
-                    }
-
-                    Theme.Dark -> {
-                        ThemeVariables.mainColor(Color("#F8F4E3"))
-                        ThemeVariables.accentColor(Color("#1d7874"))
-                        ThemeVariables.backgroundColor(Color("#201e1f"))
-                    }
-                }
+                ThemeProvider.theme.applyStyle()
             }
         }
 
@@ -59,10 +46,20 @@ fun main() {
 
         Layout {
             PageHeader {
-                H1 { Text("My delicious site") }
+                H1 { Text("LIMEBECK.DEV") }
                 Div {
+                    val themeState = mutableStateOf(false)
+                    components.Switch("Theme", invertedColors = true, state = themeState) { checked ->
+                        ThemeProvider.theme =
+                            if (checked) {
+                                Theme.Dark
+                            } else {
+                                Theme.Light
+                            }
+                    }
                     components.Button("Switch theme") {
                         ThemeProvider.theme = ThemeProvider.theme.opposite
+                        themeState.value = !themeState.value
                     }
                 }
             }

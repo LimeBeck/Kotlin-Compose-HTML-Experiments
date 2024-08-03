@@ -8,7 +8,7 @@ import org.jetbrains.compose.web.dom.ElementScope
 import org.jetbrains.compose.web.dom.Text
 import org.w3c.dom.HTMLElement
 
-object ButtonStyles : StyleSheet() {
+internal object ButtonStyles : StyleSheet() {
     @OptIn(ExperimentalComposeWebApi::class)
     val button by style {
         display(DisplayStyle.InlineBlock)
