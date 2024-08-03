@@ -21,6 +21,8 @@ import org.jetbrains.compose.web.dom.Text
 internal class SwitchStyles(
     invertedColors: Boolean,
 ) : StyleSheet() {
+    val animationDuration = 0.3.s
+
     val switch by style {
         position(Position.Relative)
         display(DisplayStyle.InlineBlock)
@@ -53,7 +55,7 @@ internal class SwitchStyles(
             },
         )
         transitions {
-            defaultDuration(0.4.s)
+            "" { duration = animationDuration }
         }
         borderRadius(34.px)
 
@@ -82,7 +84,7 @@ internal class SwitchStyles(
                 },
             )
             transitions {
-                defaultDuration(0.4.s)
+                "" { duration = animationDuration }
             }
             borderRadius(50.percent)
         }

@@ -25,6 +25,7 @@ import org.jetbrains.compose.web.renderComposableInBody
 import pages.CatFactPage
 import pages.HelloWorldPage
 import pages.HomePage
+import pages.SwitchesPage
 
 fun main() {
     val client =
@@ -67,6 +68,9 @@ fun main() {
                 HashRouter("/") {
                     route("/") {
                         HomePage()
+                    }
+                    route("/switches") {
+                        SwitchesPage()
                     }
                     route("/hello-world") {
                         HelloWorldPage()
